@@ -3,7 +3,8 @@ window.onload = () => {
 	// let socket = io.connect('https://absolutfrenemy.pink:3000');
 	// let socket = io.connect('http://absolutfrenemy.pink:3000');
 	// let socket = io.connect('http://172.20.10.4:3000');
-	let socket = io();
+
+	const wss = new WebSocket("ws://127.0.0.1:3000")
 
 	var sceneEl = document.querySelector('a-scene');
 	const c = 10;
@@ -52,12 +53,15 @@ window.onload = () => {
 		objects.push(newEl);
 	}
 
-	socket.on('data', data => {
+	wss.onmessage = (data) => {
+
+		data = JSON.parse(data.data);
 
 		for (let i = 0; i < joints.length; i++){
 			if (joints[i] === data.name){
+
 				objects[i].object3D.position.set(data.px*c,data.py*c,data.pz*c);
 			}
 		}
-	});
+	}
 }
