@@ -80,7 +80,7 @@ public class UDPSend : MonoBehaviour
             msg += "\"ry\":" + ry + ",";
             msg += "\"rz\":" + rz;
             msg += "}";
-            //Debug.Log(msg);
+            Debug.Log(msg);
             sendString(msg);
             TraverseHierarchy(child);
         }
@@ -92,7 +92,8 @@ public class UDPSend : MonoBehaviour
         print("UDPSend.init()");
 
         // define
-        IP="127.0.0.1";
+        //IP = "127.0.0.1";
+        IP = "35.240.86.53";
         //IP = "192.168.0.102";
         port = 7002;
 
