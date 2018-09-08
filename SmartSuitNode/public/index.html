@@ -12,14 +12,16 @@
 <body>
 	<a-scene>
 		<a-entity id="camera"
-			position="0 0 20"
+			position="0 0 100"
 			camera="fov: 40; zoom: 1; far: 10000; near: 1;"
 			look-controls
-			orbit-controls="
-				enablePan: false;
-				enableDamping: true;
-				target: 0 0 0;"
 		></a-entity>
+		<a-sky color="red"></a-sky>
+		<a-entity
+			light="type: ambient; color: #fff; intensity: 1;"></a-entity>
+
+		<a-entity
+			light="type: hemisphere; color: #fff; groundColor: #fff; intensity: 0.2;"></a-entity>
 	</a-scene>
 </body>
 </html>
