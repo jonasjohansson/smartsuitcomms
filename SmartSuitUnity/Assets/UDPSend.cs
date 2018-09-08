@@ -56,27 +56,36 @@ public class UDPSend : MonoBehaviour
         init();
     }
 
-    // OnGUI
-    void OnGUI()
+    private void Update()
     {
-        Rect rectObj = new Rect(40, 380, 200, 400);
-        GUIStyle style = new GUIStyle();
-        style.alignment = TextAnchor.UpperLeft;
-        GUI.Box(rectObj, "# UDPSend-Data\n127.0.0.1 " + port + " #\n"
-                + "shell> nc -lu 127.0.0.1  " + port + " \n"
-                , style);
+        TraverseHierarchy(this.gameObject.transform);
+    }
 
-        // ------------------------
-        // send it
-        // ------------------------
-        strMessage = GUI.TextField(new Rect(40, 420, 140, 20), strMessage);
-        if (GUI.Button(new Rect(190, 420, 40, 20), "send"))
+    void TraverseHierarchy(Transform root)
+    {
+        foreach (Transform child in root)
         {
-            sendString(strMessage + "\n");
+            float px = child.transform.position.x;
+            float py = child.transform.position.y;
+            float pz = child.transform.position.z;
+            float rx = child.transform.rotation.x;
+            float ry = child.transform.rotation.y;
+            float rz = child.transform.rotation.z;
+            String msg = "{";
+            msg += "\"name\":\"" + child.name + "\",";
+            msg += "\"px\":" + px + ",";
+            msg += "\"py\":" + py + ",";
+            msg += "\"pz\":" + pz + ",";
+            msg += "\"rx\":" + rx + ",";
+            msg += "\"ry\":" + ry + ",";
+            msg += "\"rz\":" + rz;
+            msg += "}";
+            //Debug.Log(msg);
+            sendString(msg);
+            TraverseHierarchy(child);
         }
     }
 
-    // init
     public void init()
     {
         // Endpunkt definieren, von dem die Nachrichten gesendet werden.
@@ -99,36 +108,6 @@ public class UDPSend : MonoBehaviour
 
     }
 
-    // inputFromConsole
-    private void inputFromConsole()
-    {
-        try
-        {
-            string text;
-            do
-            {
-                text = Console.ReadLine();
-
-                // Den Text zum Remote-Client senden.
-                if (text != "")
-                {
-
-                    // Daten mit der UTF8-Kodierung in das Binärformat kodieren.
-                    byte[] data = Encoding.UTF8.GetBytes(text);
-
-                    // Den Text zum Remote-Client senden.
-                    client.Send(data, data.Length, remoteEndPoint);
-                }
-            } while (text != "");
-        }
-        catch (Exception err)
-        {
-            print(err.ToString());
-        }
-
-    }
-
-    // sendData
     private void sendString(string message)
     {
         try

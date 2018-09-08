@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<script src="https://unpkg.com/aframe@0.8.2/dist/aframe-master.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.dev.js"></script>
+	<script src="app.js"></script>
+</head>
+<body>
+	<a-scene>
+		<a-entity id="camera"
+			position="0 0 20"
+			camera="fov: 40; zoom: 1; far: 10000; near: 1;"
+			look-controls
+			orbit-controls="
+				enablePan: false;
+				enableDamping: true;
+				target: 0 0 0;"
+		></a-entity>
+	</a-scene>
+</body>
+</html>
