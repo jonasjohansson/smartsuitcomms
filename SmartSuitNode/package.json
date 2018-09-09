@@ -16,6 +16,7 @@
   "homepage": "https://github.com/jonasjohansson/smartsuitcomms#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "node-osc": "^2.1.0",
     "ws": "^6.0.0"
   }
 }

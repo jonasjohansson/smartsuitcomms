@@ -6,16 +6,28 @@
 	<meta name="viewport" content="width=device-width">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<script src="aframe-master.js"></script>
+	<script src="https://unpkg.com/three@0.95.0/examples/js/libs/inflate.min.js"></script>
+	<script src="https://unpkg.com/aframe-extras@4.1.2/dist/aframe-extras.loaders.min.js"></script>
+	<script src="https://unpkg.com/three@0.95.0/examples/js/objects/Water.js"></script>
+	<script src="https://unpkg.com/three@0.95.0/examples/js/objects/Sky.js"></script>
+	<script src="aframe-ocean.js"></script>
 	<script src="app.js"></script>
 </head>
 <body>
-	<a-scene>
+	<a-scene
+		keyboard-controls>
 		<a-entity id="camera"
-			position="0 0 100"
+			position="0 1.6 40"
 			camera="fov: 40; zoom: 1; far: 10000; near: 1;"
 			look-controls
 		></a-entity>
-		<a-sky color="red"></a-sky>
+		<a-sky color="black"></a-sky>
+		<a-entity id="ocean" ocean></a-entity>
+		<a-entity
+			light="type: ambient; color: #fff; intensity: 1;"></a-entity>
+		<a-entity id="fbx" bone-replace fbx-model="src: url(ybot.fbx);"></a-entity>
+		<a-entity
+			light="type: hemisphere; color: #fff; groundColor: #fff; intensity: 0.2;"></a-entity>
 	</a-scene>
 </body>
 </html>

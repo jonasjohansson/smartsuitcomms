@@ -4,10 +4,12 @@ window.onload = () => {
 	// let socket = io.connect('http://absolutfrenemy.pink:3000');
 	// let socket = io.connect('http://172.20.10.4:3000');
 
-	const wss = new WebSocket("ws://127.0.0.1:3000")
+	// const wss = new WebSocket("ws://35.205.180.57:3000");
+	const wss = new WebSocket("ws://127.0.0.1:3000");
 
 	var sceneEl = document.querySelector('a-scene');
-	const c = 10;
+
+	const c = 5;
 
 	let joints = [
 		'RokokoGuy_Hips',
@@ -45,10 +47,12 @@ window.onload = () => {
 
 	for (let joint of joints){
 		var newEl = document.createElement('a-sphere');
-		newEl.setAttribute('color', 'black');
+		newEl.setAttribute('color', 'white');
 		newEl.setAttribute('width', '0.5');
 		newEl.setAttribute('height', '0.5');
 		newEl.setAttribute('depth', '0.5');
+		var newLight = document.createElement('a-light');
+		newEl.appendChild(newLight);
 		sceneEl.appendChild(newEl);
 		objects.push(newEl);
 	}
@@ -60,8 +64,23 @@ window.onload = () => {
 		for (let i = 0; i < joints.length; i++){
 			if (joints[i] === data.name){
 
-				objects[i].object3D.position.set(data.px*c,data.py*c,data.pz*c);
+				objects[i].object3D.setAttribute('start',`${data.px} ${data.py} ${data.pz}`);
+				objects[i].object3D.setAttribute('end',`${data.px*10} ${data.py*10} ${data.pz*10}`);
 			}
 		}
 	}
 }
+
+AFRAME.registerComponent('bone-replace', {
+	schema: {
+	},
+	init() {
+		const data = this.data;
+		this.el.addEventListener('model-loaded', e => {
+			const object = e.detail.model;
+			object.traverse(node => {
+				console.log(node);
+			});
+		});
+	}
+});

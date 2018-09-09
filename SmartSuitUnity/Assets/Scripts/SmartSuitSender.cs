@@ -5,10 +5,11 @@ using System;
 public class SmartSuitSender : MonoBehaviour
 {
     private WebSocket w;
+    public String uri = "ws://35.205.180.57:3000";
 
     IEnumerator Start()
     {
-        w = new WebSocket(new Uri("ws://127.0.0.1:3000"));
+        w = new WebSocket(new Uri(uri));
         yield return StartCoroutine(w.Connect());
         //w.SendString("Hi there");
         //int i = 0;
